@@ -1,17 +1,9 @@
 import React, { useState } from "react";
-import {
-  Button,
-  Box,
-  Autocomplete,
-  CircularProgress,
-  Typography,
-} from "@mui/material";
+import { Box, Autocomplete, CircularProgress, Typography } from "@mui/material";
 import useAirports, { IAirport } from "../../hooks/useAirports";
 import { useAirportsContext } from "../../context/airportsRoute";
 import useFlightRoute from "../../hooks/useFlightRoute";
 import {
-  ArrowDown,
-  ArrowUp,
   Form,
   LanIcon,
   PaperContainer,
@@ -61,13 +53,6 @@ const Search: React.FC = () => {
     triggerDrawRoute();
   };
 
-  const switchAirports = (): void => {
-    setDeparture((currentDeparture) => {
-      setDestination(currentDeparture);
-      return destination;
-    });
-  };
-
   return (
     <PaperContainer>
       <Box
@@ -91,7 +76,7 @@ const Search: React.FC = () => {
             <TakeOffIcon />
             <Autocomplete
               options={filteredDepartureAirports}
-              getOptionLabel={(option) => `${option.iata} - ${option.name}`} // Display the airport name in the dropdown
+              getOptionLabel={(option) => `${option.iata} - ${option.name}`}
               inputValue={departure}
               onInputChange={(e, newInputValue) => {
                 handleDepartureChange(newInputValue);
@@ -111,14 +96,7 @@ const Search: React.FC = () => {
               sx={{ flexGrow: 1 }}
             />
           </Box>
-          <Button
-            variant="text"
-            onClick={() => switchAirports()}
-            disabled={!departure || !destination}
-          >
-            <ArrowDown />
-            <ArrowUp />
-          </Button>
+
           <Box
             sx={{
               display: "flex",
@@ -130,7 +108,7 @@ const Search: React.FC = () => {
 
             <Autocomplete
               options={filteredDestinationAirports}
-              getOptionLabel={(option) => `${option.iata} - ${option.name}`} // Display the airport name in the dropdown
+              getOptionLabel={(option) => `${option.iata} - ${option.name}`}
               inputValue={destination}
               onInputChange={(e, newInputValue) => {
                 handleDestinationChange(newInputValue);

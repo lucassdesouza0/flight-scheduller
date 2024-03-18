@@ -1,11 +1,6 @@
 import { styled, Theme } from "@mui/material/styles";
 import { Button, Paper, TextField } from "@mui/material";
-import {
-  FlightLand,
-  FlightTakeoff,
-  ArrowDownward,
-  ArrowUpward,
-} from "@mui/icons-material";
+import { FlightLand, FlightTakeoff } from "@mui/icons-material";
 
 export const PaperContainer = styled(Paper)(({ theme }) => ({
   padding: "1rem",
@@ -52,28 +47,6 @@ export const TextFieldStyled = styled(TextField)(({ theme }) => ({
   backgroundColor: theme.palette.background.default,
 
   [theme.breakpoints.down("md")]: {},
-}));
-
-export const ArrowDown = styled(ArrowDownward)(({ theme }) => ({
-  color: theme.palette.primary.main,
-  minWidth: "none",
-
-  [theme.breakpoints.down("md")]: {
-    padding: "0",
-    width: "0.9rem",
-    height: "0.9rem",
-  },
-}));
-
-export const ArrowUp = styled(ArrowUpward)(({ theme }) => ({
-  color: theme.palette.primary.main,
-  minWidth: "none",
-
-  [theme.breakpoints.down("md")]: {
-    padding: "0",
-    width: "0.9rem",
-    height: "0.9rem",
-  },
 }));
 
 export const Form = styled("form")(({ theme }) => ({
