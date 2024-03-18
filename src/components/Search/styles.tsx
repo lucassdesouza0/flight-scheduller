@@ -38,9 +38,8 @@ export const LanIcon = styled(FlightLand)(({ theme }) => ({
 }));
 
 export const SubmitButton = styled(Button)(({ theme }) => ({
-  display: "block",
   minWidth: "100px",
-  margin: "0 auto",
+  margin: "2rem 0",
 }));
 
 export const TextFieldStyled = styled(TextField)(({ theme }) => ({
@@ -52,6 +51,7 @@ export const TextFieldStyled = styled(TextField)(({ theme }) => ({
 export const Form = styled("form")(({ theme }) => ({
   display: "flex",
   flexDirection: "column",
+  alignItems: "center",
   gap: "1rem",
   [theme.breakpoints.down("md")]: {
     gap: "0.1rem",

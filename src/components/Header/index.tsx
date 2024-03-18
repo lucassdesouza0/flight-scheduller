@@ -1,12 +1,7 @@
-import {
-  AppBar,
-  FormControlLabel,
-  Switch,
-  Toolbar,
-  Typography,
-} from "@mui/material";
+import { FormControlLabel, Switch, Toolbar, Typography } from "@mui/material";
 import LightModeIcon from "@mui/icons-material/LightMode";
 import DarkModeIcon from "@mui/icons-material/DarkMode";
+import { AppBarContainer } from "./styles";
 
 interface HeaderProps {
   handleThemeToggle: () => void;
@@ -16,11 +11,9 @@ const Header: React.FC<HeaderProps & { darkMode: boolean }> = ({
   handleThemeToggle,
   darkMode,
 }) => {
-  // Rest of the code...
-
   return (
     <header>
-      <AppBar position="static" sx={{ borderRadius: "1rem" }}>
+      <AppBarContainer position="static">
         <Toolbar>
           <Typography variant="h4" fontWeight="500">
             Flight Helper
@@ -37,7 +30,7 @@ const Header: React.FC<HeaderProps & { darkMode: boolean }> = ({
             sx={{ marginLeft: "auto" }}
           />
         </Toolbar>
-      </AppBar>
+      </AppBarContainer>
     </header>
   );
 };

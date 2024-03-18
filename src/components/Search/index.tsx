@@ -11,11 +11,15 @@ import {
   TakeOffIcon,
   TextFieldStyled,
 } from "./styles";
+import useCalculateDistance from "../../hooks/useCalculateDistance";
+import { Flight } from "@mui/icons-material";
 
 const Search: React.FC = () => {
   const [departure, setDeparture] = useState<string>("");
   const [destination, setDestination] = useState<string>("");
-  const { setAirportA, setAirportB } = useAirportsContext();
+  const [milesDistance, setMilesDistance] = useState<number | null>(null);
+  const { airportA, airportB, setAirportA, setAirportB } = useAirportsContext();
+  const { calculate } = useCalculateDistance();
 
   const { airports, filterAirports } = useAirports();
   const { triggerDrawRoute, resetDrawRoute, loading } = useFlightRoute();
@@ -24,12 +28,18 @@ const Search: React.FC = () => {
   const filteredDestinationAirports = filterAirports(destination);
 
   const handleDepartureChange = (value: string): void => {
-    if (!value.length) resetDrawRoute();
+    if (!value.length) {
+      resetDrawRoute();
+      setMilesDistance(null);
+    }
     setDeparture(value);
   };
 
   const handleDestinationChange = (value: string): void => {
-    if (!value.length) resetDrawRoute();
+    if (!value.length) {
+      resetDrawRoute();
+      setMilesDistance(null);
+    }
     setDestination(value);
   };
 
@@ -47,10 +57,17 @@ const Search: React.FC = () => {
     }
   };
 
-  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
 
-    triggerDrawRoute();
+    const distance = calculate(
+      airportA.latitude,
+      airportA.longitude,
+      airportB.latitude,
+      airportB.longitude
+    );
+    await triggerDrawRoute();
+    setMilesDistance(distance);
   };
 
   return (
@@ -60,18 +77,13 @@ const Search: React.FC = () => {
           padding: "2rem",
         }}
       >
-        <Typography variant="h5" sx={{ marginBottom: "1rem" }}>
+        <Typography
+          variant="h5"
+          sx={{ marginBottom: "2rem", textAlign: "center" }}
+        >
           Search for flights
         </Typography>
-        <Form
-          onSubmit={handleSubmit}
-          style={{
-            display: "flex",
-            flexDirection: "column",
-            alignItems: "flex-start",
-            gap: "1rem",
-          }}
-        >
+        <Form onSubmit={handleSubmit}>
           <Box sx={{ display: "flex", alignItems: "center", width: "100%" }}>
             <TakeOffIcon />
             <Autocomplete
@@ -143,6 +155,21 @@ const Search: React.FC = () => {
             )}
           </SubmitButton>
         </Form>
+        {milesDistance && (
+          <Typography
+            variant="h6"
+            sx={{
+              marginTop: "2rem",
+              display: "flex",
+              alignItems: "center",
+              gap: "0.5rem",
+              justifyContent: "center",
+            }}
+          >
+            <Flight />
+            {milesDistance.toFixed(2)} Nautical Miles
+          </Typography>
+        )}
       </Box>
     </PaperContainer>
   );

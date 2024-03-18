@@ -4,15 +4,15 @@ import Header from "./components/Header";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import Map from "./components/Map";
 import Search from "./components/Search";
-import { Container } from "@mui/material";
 import { AirportsProvider } from "./context/airportsRoute";
 import useLocalStorage from "./hooks/useLocalStorage";
+import { Container } from "./styles";
 
 const darkTheme = createTheme({
   palette: {
     mode: "dark",
     primary: {
-      main: "#ffffff", // Change the primary color for dark theme
+      main: "#ffffff",
     },
     background: {
       default: "#181e26",
@@ -24,7 +24,7 @@ const darkTheme = createTheme({
     },
   },
 });
-// Define your light theme
+
 const lightTheme = createTheme({
   palette: {
     mode: "light",
@@ -46,11 +46,11 @@ const lightTheme = createTheme({
   },
 });
 
-function App() {
+function App(): JSX.Element {
   const [value, updateValue] = useLocalStorage("darkMode", false);
-  const [darkMode, setDarkMode] = useState(value);
+  const [darkMode, setDarkMode] = useState<boolean>(value);
 
-  const handleThemeToggle = () => {
+  const handleThemeToggle = (): void => {
     setDarkMode(!darkMode);
     updateValue(!darkMode);
   };
@@ -58,21 +58,11 @@ function App() {
   return (
     <AirportsProvider>
       <ThemeProvider theme={darkMode ? darkTheme : lightTheme}>
-        <Container
-          sx={{
-            bgcolor: "background.default",
-          }}
-          style={{
-            padding: "2rem",
-            height: "100vh",
-          }}
-          maxWidth="xl"
-          disableGutters
-        >
+        <Container maxWidth="xl" disableGutters>
           <Header handleThemeToggle={handleThemeToggle} darkMode={darkMode} />
           <Grid
             container
-            justifyContent={"space-between"}
+            justifyContent="space-between"
             columns={{ sm: 12, xs: 6 }}
           >
             <Grid item xs={6}>

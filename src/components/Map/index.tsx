@@ -28,10 +28,10 @@ const Map: React.FC = () => {
   const center = { lat: 39.123, lng: -94.5194 };
 
   const usTerritory: Territory[] = [
-    { lat: 49.384358, lng: -126.848974 }, // Washington
-    { lat: 25.76168, lng: -82.19179 }, // Florida
-    { lat: 44.693947, lng: -71.381927 }, // Maine
-    { lat: 39.739235, lng: -106.99025 }, // Colorado
+    { lat: 49.384358, lng: -126.848974 },
+    { lat: 25.76168, lng: -82.19179 },
+    { lat: 44.693947, lng: -71.381927 },
+    { lat: 39.739235, lng: -106.99025 },
   ];
 
   let bounds: google.maps.LatLngBounds | undefined;
@@ -72,10 +72,6 @@ const Map: React.FC = () => {
     height: "40vh",
   };
 
-  const Wrapper = {
-    margin: "1rem",
-  };
-
   useEffect(() => {
     if (drawRoute && airportA && airportB) {
       const origin = {
@@ -103,7 +99,12 @@ const Map: React.FC = () => {
       onLoad={() => setIsScriptLoaded(true)}
     >
       {isScriptLoaded && (
-        <Paper elevation={3} style={Wrapper}>
+        <Paper
+          elevation={3}
+          sx={{
+            margin: "1rem",
+          }}
+        >
           <GoogleMap
             mapContainerStyle={containerStyle}
             center={drawRoute ? getRouteCenter() : center}

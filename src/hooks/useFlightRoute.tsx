@@ -1,17 +1,22 @@
 import { useContext, useState } from "react";
+
 import { AirportsContext } from "../context/airportsRoute";
 
-const useFlightRoute = () => {
-  const { setDrawRoute } = useContext(AirportsContext);
-  const [loading, setLoading] = useState(false);
+type FlightRouteHook = {
+  triggerDrawRoute: () => Promise<void>;
+  loading: boolean;
+  resetDrawRoute: () => void;
+};
 
-  const triggerDrawRoute = async () => {
+const useFlightRoute = (): FlightRouteHook => {
+  const { setDrawRoute } = useContext(AirportsContext);
+  const [loading, setLoading] = useState<boolean>(false);
+
+  const triggerDrawRoute = async (): Promise<void> => {
     try {
       setLoading(true);
-      // Simulate a fetch call
       await new Promise((resolve) => setTimeout(resolve, 2000));
 
-      // Update the prop in the context to true
       setDrawRoute(true);
       setLoading(false);
     } catch (error) {
@@ -19,7 +24,7 @@ const useFlightRoute = () => {
     }
   };
 
-  const resetDrawRoute = () => {
+  const resetDrawRoute = (): void => {
     setDrawRoute(false);
   };
 
